@@ -510,7 +510,6 @@ MODEL_PROFILE = {
 | Baseline solution in `solution/` | Reference implementation |
 | Sample private images (6) | Included |
 | Full 1,202 images | Install via script |
-| Ground truth solution | BTC only — not public |
 
 CI workflow is not configured yet.
 
