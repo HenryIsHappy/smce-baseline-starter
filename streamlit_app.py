@@ -314,7 +314,7 @@ def _render_about_tab() -> None:
         | 1 − CER (local) | `Đang cập nhật` |
         | F1 product (local) | `Đang cập nhật` |
         | **Private score** | `Đang cập nhật` |
-        | Latency (avg / image) | `~0.1` ms |
+        | Latency (avg / image) | `~1` s |
         | Product head size | `0.0` MB (Dictionary-based) |
         """
     )
