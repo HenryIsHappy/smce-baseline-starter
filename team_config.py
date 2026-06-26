@@ -9,9 +9,9 @@ REPO_ROOT = Path(__file__).resolve().parent
 
 # Team identity (required after fork)
 
-TEAM_NAME = "Team ABC"
-TEAM_MEMBERS = "[Member 1], [Member 2], [Member 3]"
-GITHUB_REPO = "https://github.com/your-team/ura-hackathon-team-abc"
+TEAM_NAME = "Team 24 - 2URA4"
+TEAM_MEMBERS = "Nguyễn Hoàng Thắng, Nguyễn Cảnh Hưng, Lê Bảo Nguyên, Dương Minh Nhật"
+GITHUB_REPO = "https://github.com/HenryIsHappy/smce-baseline-starter"
 OTHER_RESOURCE = "https://example.com/other-resource"
 STREAMLIT_APP_URL = ""  # e.g. "https://ura-team-abc.streamlit.app" after deploy
 
@@ -51,12 +51,11 @@ DEFAULT_MIN_CONF = 0.35
 # Model footprint (edit when you change OCR / models — benchmark layer reads this)
 
 MODEL_PROFILE: dict[str, str | float | None] = {
-    "pipeline": "EasyOCR (vi+en) + regex brands + sklearn product head",
+    "pipeline": "PaddleOCR (vi) + custom fuzzy dictionary matching + brand resolver",
     "runtime_device": "CPU",
     "product_head_mb": None,  # auto-estimate when None
-    "ocr_backend_note": "EasyOCR weights ~200 MB (downloaded once, not in repo)",
+    "ocr_backend_note": "PaddleOCR models",
     "lightweight_notes": (
-        "Baseline is CPU-friendly; product head is a few MB. "
-        "Swap OCR for a lighter stack to improve latency on Cloud."
+        "Updated to use the new V45 architecture with PaddleOCR."
     ),
 }
