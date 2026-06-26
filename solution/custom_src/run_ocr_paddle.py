@@ -129,9 +129,8 @@ def _append_rows(out_path: Path, rows: list[dict[str, object]], append: bool = T
 def _init_paddleocr(lang: str, use_gpu: bool):
     try:
         from paddleocr import PaddleOCR
-    except ImportError:
-        print("PaddleOCR is not installed; writing blank OCR rows.")
-        return None
+    except ImportError as exc:
+        raise RuntimeError(f"PaddleOCR is not installed: {exc}")
     except OSError as exc:
         if "torch" not in sys.modules:
             torch_stub = types.ModuleType("torch")
@@ -141,8 +140,7 @@ def _init_paddleocr(lang: str, use_gpu: bool):
             from paddleocr import PaddleOCR
             print(f"PaddleOCR import recovered with torch shim after OSError: {exc}")
         except Exception as retry_exc:
-            print(f"PaddleOCR could not be imported; writing blank OCR rows. Error: {retry_exc}")
-            return None
+            raise RuntimeError(f"PaddleOCR could not be imported. Error: {retry_exc}")
 
     lang_candidates = [lang]
     if lang != "en":
@@ -162,8 +160,7 @@ def _init_paddleocr(lang: str, use_gpu: bool):
             except Exception as exc:  # pragma: no cover - depends on local PaddleOCR version
                 last_error = exc
 
-    print(f"PaddleOCR could not be initialized; writing blank OCR rows. Error: {last_error}")
-    return None
+    raise RuntimeError(f"PaddleOCR could not be initialized. Error: {last_error}")
 
 
 def _pil_image_info(path: Path) -> tuple[str, str, bool, int | None]:
