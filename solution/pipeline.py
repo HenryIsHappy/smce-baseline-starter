@@ -9,10 +9,13 @@ The Streamlit demo and submission script import:
 from __future__ import annotations
 
 import time
+import threading
 from functools import lru_cache
 from typing import Any
 import numpy as np
 from PIL import Image
+
+_ocr_lock = threading.Lock()
 
 from team_config import DEFAULT_MIN_CONF
 
@@ -63,7 +66,10 @@ def run_ocr_on_image(img: Image.Image, reader, preprocess_mode="original") -> st
     bgr_array = rgb_array[:, :, ::-1].copy()
     
     image_array = preprocess_image_array(bgr_array, preprocess_mode)
-    raw_result = _run_reader(reader, image_array)
+    
+    with _ocr_lock:
+        raw_result = _run_reader(reader, image_array)
+        
     boxes = sort_ocr_boxes(_flatten_ocr_result(raw_result))
     parsed_text = clean_ocr_text(" ".join(box.text for box in boxes))
     if not parsed_text:
