@@ -13,7 +13,7 @@ TEAM_NAME = "Team 24 - 2URA4"
 TEAM_MEMBERS = "Nguyễn Hoàng Thắng, Nguyễn Cảnh Hưng, Lê Bảo Nguyên, Dương Minh Nhật"
 GITHUB_REPO = "https://github.com/HenryIsHappy/smce-baseline-starter"
 OTHER_RESOURCE = "https://example.com/other-resource"
-STREAMLIT_APP_URL = ""  # e.g. "https://ura-team-abc.streamlit.app" after deploy
+STREAMLIT_APP_URL = "https://smce-baseline-starter-etbnbnzpthaqxq8x36xav6.streamlit.app/"  # e.g. "https://ura-team-abc.streamlit.app" after deploy
 
 
 # Streamlit page copy
