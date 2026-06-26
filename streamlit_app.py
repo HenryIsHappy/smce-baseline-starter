@@ -403,7 +403,7 @@ with tab_live:
         col_img, col_result = st.columns(2)
 
         with col_img:
-            st.image(img, use_container_width=True)
+            st.image(img, width="stretch")
 
         with col_result:
             if st.button("Chạy OCR", type="primary", key="run_ocr_live"):
