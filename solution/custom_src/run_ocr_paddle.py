@@ -418,23 +418,30 @@ def sort_ocr_boxes(boxes: list[OCRBox]) -> list[OCRBox]:
 
 def _run_reader(reader, ocr_input: Any) -> object:
     errors: list[str] = []
-    try:
-        return reader.ocr(ocr_input, cls=True)
-    except Exception as exc:
-        errors.append(f"reader.ocr(image, cls=True): {type(exc).__name__}: {exc}")
-
-    try:
-        return reader.ocr(ocr_input)
-    except Exception as exc:
-        errors.append(f"reader.ocr(image): {type(exc).__name__}: {exc}")
-
-    if hasattr(reader, "predict"):
+    
+    for attempt in range(4):
+        safe_input = ocr_input.copy() if hasattr(ocr_input, "copy") else ocr_input
+        
         try:
-            return reader.predict(ocr_input)
+            return reader.ocr(safe_input, cls=True)
         except Exception as exc:
-            errors.append(f"reader.predict(image): {type(exc).__name__}: {exc}")
-    else:
-        errors.append("reader.predict(image): unavailable")
+            errors.append(f"[Attempt {attempt}] ocr(cls=True): {type(exc).__name__}: {exc}")
+
+        try:
+            return reader.ocr(safe_input)
+        except Exception as exc:
+            errors.append(f"[Attempt {attempt}] ocr(): {type(exc).__name__}: {exc}")
+
+        if hasattr(reader, "predict"):
+            try:
+                return reader.predict(safe_input)
+            except Exception as exc:
+                errors.append(f"[Attempt {attempt}] predict(): {type(exc).__name__}: {exc}")
+        else:
+            errors.append("reader.predict(image): unavailable")
+            
+        import time
+        time.sleep(0.2) # Let C++ memory flush before retrying
 
     raise RuntimeError("All PaddleOCR inference calls failed. " + " | ".join(errors))
 
