@@ -122,7 +122,12 @@ def predict_from_image(
     t0 = time.perf_counter()
 
     t_ocr = time.perf_counter()
-    ocr_text = run_ocr_on_image(img, get_ocr_reader())
+    try:
+        ocr_text = run_ocr_on_image(img, get_ocr_reader())
+    except Exception as e:
+        print(f"OCR Engine corrupted ({e}). Reloading fresh reader...")
+        get_ocr_reader.cache_clear()
+        ocr_text = run_ocr_on_image(img, get_ocr_reader())
     ocr_ms = (time.perf_counter() - t_ocr) * 1000
 
     t_extract = time.perf_counter()
