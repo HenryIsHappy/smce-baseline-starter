@@ -272,10 +272,10 @@ def _render_about_tab() -> None:
     st.subheader("3. Ý tưởng & pipeline giải pháp")
     st.markdown(
         """
-        > **Mô tả pipeline OCR & NLP của Team 24 - 2URA4**
+        > **Mô tả pipeline của Team 24 - 2URA4**
 
         1. **Tiền xử lý ảnh** — Chuyển đổi định dạng ảnh, giữ nguyên cấu trúc gốc hoặc upscale nhẹ để tăng cường độ nét cho OCR.
-        2. **OCR** — Sử dụng mô hình **PaddleOCR (ngôn ngữ vi)** để nhận diện chữ tiếng Việt với độ chính xác cao trên CPU.
+        2. **OCR** — Sử dụng mô hình **PaddleOCR** để nhận diện chữ tiếng Việt với độ chính xác cao trên CPU.
         3. **Hậu xử lý OCR** — Sắp xếp các text box từ trên xuống dưới, trái qua phải; làm sạch các ký tự rác và khoảng trắng thừa.
         4. **Trích xuất brand** — Sử dụng `BrandResolver` đối chiếu với tập dữ liệu `train_labels.csv`, kết hợp thuật toán fuzzy matching (RapidFuzz) để sửa lỗi chính tả.
         5. **Trích xuất product** — Xây dựng từ điển sản phẩm `product_dictionary.csv`, sử dụng thuật toán nối token N-gram và chấm điểm độ tương đồng để tìm ra tên sản phẩm chuẩn xác nhất.
@@ -286,9 +286,9 @@ def _render_about_tab() -> None:
     st.subheader("4. Điểm khác biệt & đóng góp chính")
     st.markdown(
         """
-        - 🚀 **Tối ưu hóa tốc độ & bộ nhớ**: Tích hợp PaddleOCR V45 siêu nhẹ, chạy ổn định và mượt mà trên môi trường CPU 100%.
-        - 🔍 **Thuật toán Fuzzy Matching ưu việt**: Sử dụng thư viện `rapidfuzz` giúp hệ thống chống chịu tốt với các lỗi nhận diện sai chính tả của mô hình OCR.
-        - 🧠 **Cơ chế Pipeline Module**: Tách biệt rõ ràng phần OCR, giải quyết Brand và Product thành các module riêng biệt, cực kỳ dễ bảo trì và mở rộng.
+        - **Tối ưu hóa tốc độ & bộ nhớ**: Tích hợp PaddleOCR siêu nhẹ, chạy ổn định và mượt mà trên môi trường CPU 100%.
+        - **Thuật toán Fuzzy Matching**: Sử dụng thư viện `rapidfuzz` giúp hệ thống chống chịu tốt với các lỗi nhận diện sai chính tả của mô hình OCR.
+        - **Cơ chế Pipeline Module**: Tách biệt rõ ràng phần OCR, giải quyết Brand và Product thành các module riêng biệt.
         """
     )
 
@@ -297,7 +297,7 @@ def _render_about_tab() -> None:
         """
         | Thành phần | Công nghệ |
         |------------|-----------|
-        | OCR | **PaddleOCR (vi)** |
+        | OCR | **PaddleOCR** |
         | Brand extraction | **Fuzzy Matching (RapidFuzz) + Brand Rules** |
         | Product extraction | **Dictionary Token Matching** |
         | Runtime | **CPU, Python 3.12** |
@@ -339,7 +339,7 @@ def _render_about_tab() -> None:
         - Khả năng xử lý ảnh chụp ở góc quá nghiêng hoặc mờ nhòe còn hạn chế nếu OCR đọc thiếu quá nhiều chữ.
 
         **Hướng phát triển**
-        - Fine-tune lại trọng số của mô hình PaddleOCR trên tập dữ liệu đặc thù về hóa đơn / bảng giá siêu thị tại Việt Nam.
+        - Fine-tune lại trọng số của mô hình PaddleOCR trên tập dữ liệu đặc thù về các thương hiệu tại Việt Nam.
         - Kết hợp các mô hình phân loại (Classification) hoặc NLP nhẹ như PhởBERT để trích xuất ngữ nghĩa tốt hơn thay vì chỉ dùng fuzzy matching.
         """
     )
